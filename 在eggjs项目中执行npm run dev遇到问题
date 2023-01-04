@@ -1,8 +1,6 @@
 问题：在eggjs项目中执行npm run dev遇到问题：
     
+    eggjs的Parsing error: Unexpected character '​'eslint
     
-    
-    
-    
-解决：
+解决：eslint auto fix和在问题处加引号来解决。
     
