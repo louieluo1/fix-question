@@ -1,0 +1,23 @@
+问题：在做vue2项目时出现如下错误，页面空白且控制台出现如下错误：
+      app.js:239 Uncaught TypeError: Cannot read properties of undefined (reading 'install')
+      at Vue.use (vue.runtime.esm.js?c320:5784:1)
+      at eval (index.js?5aa4:6:1)
+      at ./src/router/index.js (app.js:197:1)
+      at __webpack_require__ (app.js:236:33)
+      at fn (app.js:481:21)
+      at eval (main.js:8:65)
+      at ./src/main.js (app.js:187:1)
+      at __webpack_require__ (app.js:236:33)
+      at app.js:1369:109
+      at __webpack_require__.O (app.js:285:23)
+解决：
+    出现该情况的原因是vue-router安装的版本太高，一般vue2的项目对应的版本是vue-router@3版本
+
+    在控制台输入： cnpm install --save vue-router@3.5.3 重新安装vue-router即可解决
+
+    如果没有安装cnpm命令的，可以先安装：cnpm install
+
+    如果安装了cnpm 命令，则在控制台输入： cnpm install --save vue-router@3.5.3 重新安装vue-router即可解决
+
+    没有cnpm命令也可,则在控制台输入： npm install --save vue-router@3.5.3 重新安装vue-router即可解决
+  
