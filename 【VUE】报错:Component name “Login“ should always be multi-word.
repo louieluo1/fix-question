@@ -1,0 +1,3 @@
+问题：【VUE】报错:Component name “Login“ should always be multi-word.
+解决：
+    在vue.config.js文件中写入lintOnSave:false,修改完毕后重启项目即可
