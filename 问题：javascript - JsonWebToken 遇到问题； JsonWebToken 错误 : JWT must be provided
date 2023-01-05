@@ -1,0 +1,4 @@
+问题：javascript - JsonWebToken 遇到问题； JsonWebToken 错误 : JWT must be provided
+    "msg": { "name": "JsonWebTokenError", "message": "jwt must be provided" }
+解决：
+    jwt must be provided，即当 token 为空（token:{}）时，会发生此错误。
