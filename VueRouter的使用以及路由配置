@@ -1,0 +1,325 @@
+VueRouter的使用以及路由配置
+什么是VueRouter
+Vue Router 是 Vue.js 官方的路由管理器。它和 Vue.js 的核心深度集成，让构建单页面应用变得易如反掌。
+
+如何使用？
+使用VueRouter至少需要引入vue-router和Vue。
+import Vue from "vue";
+import VueRouter from "vue-router";
+初始化一个vuerouter对象，并在vue中注册
+const router = new VueRouter({
+  [ {
+    path: "/",
+    name: "Home",
+    component: Home
+  }]
+});
+
+Vue.use(VueRouter);
+
+new Vue({
+  router,
+  store,
+  render: h => h(App)
+}).$mount("#app");
+
+3.初始化vuerouter对象时需要定义router路由配置,当路由命中时，vuerouter会将组件加载到页面上。
+
+通过脚手架创建的Vue项目的vueRouter使用实例
+在mian.js中导入VueRouter，并注册成全局属性。示例中引入是router配置所在的文件夹，因为大型项目中，可能需要将router配置信息记录到多个文件中，方便管理。
+import Vue from "vue";
+import App from "./App.vue";
+import router from "./router";
+
+Vue.config.productionTip = false;
+
+Vue.use(Button);
+
+new Vue({
+  router,
+  store,
+  render: h => h(App)
+}).$mount("#app");
+
+在router文件夹中，我们创建一个index.js文件，用来放置router的相关配置。
+import Vue from "vue";
+import VueRouter from "vue-router";
+import Home from "../views/Home.vue";
+import NotFound from "../views/404";
+
+Vue.use(VueRouter);
+
+const routes = [
+  {
+    path: "/",
+    name: "Home",
+    component: Home
+  },
+  {
+    path: "/about",
+    name: "About",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/About.vue")
+  },
+  {
+    path: "*",
+    name: "404",
+    component: NotFound
+  }
+];
+
+const router = new VueRouter({
+  mode: "history",
+  base: process.env.BASE_URL,
+  routes
+});
+
+export default router;
+短短两步，我们已经有了一个可以home，ablout以及404之间切换的路由了。
+vueRouter配置文件详解
+index.js中的相关配置代码有几个地方需要说明：
+
+首先需要引入vue和vue-router，这是一切的基础。
+import Vue from "vue";
+import VueRouter from "vue-router";
+其次需要告知Vue使用vue-router
+Vue.use(VueRouter);
+定义一个新的VueRouter，并export到外面，方便在mian.js中的new Vue中注册。
+const router = new VueRouter({
+  mode: "history",
+  base: process.env.BASE_URL,
+  routes
+});
+
+export default router;
+new VueRouter有三个参数。
+mode代表路由模式，它的默认值是hash模式，hash模式很丑，且不支持锚定向，所以如果希望有个漂亮的路由或支持锚定向，可以考虑使用history模式。具体的区别可以查看官方文档。
+base代表应用的基路径，process.env.BASE_URL是指从从环境进程中根据运行环境获取的api的base_url
+routes 则是具体的路由配置列表，这个参数最核心也最关键
+routes数组的详细配置
+在routes数组中，每一个元素都是一个Router对象。
+
+如下配置，是指当浏览器的路由地址是web站点（准确的说是单体应用）根目录时，我们将要触发的路由，它的名字叫Home，它将为系统挂接Home组件。
+
+{
+    path: "/",
+    name: "Home",
+    component: Home
+  },
+<router-view />和<router-link/>组件
+Home组件将被挂接到什么位置？我们可以查看我们的入口组件APP.vue;触发Home路由时，Vue会帮我们将Home组件挂接到标签位置。
+
+Vue还为我们提供了router-link组件切换我们的路由地址，只需要在to的位置制定路由的地址（即path）即可。
+
+//app组件
+<template>
+  <div id="app">
+    <div id="nav">
+      <router-link to="/dashboard/analysis">Home</router-link> |
+      <router-link to="/form">form</router-link>
+    </div>
+    <router-view />
+  </div>
+</template>
+
+<style lang="less"></style>
+
+//home组件
+<template>
+  <div class="home">
+    this is Home
+  </div>
+</template>
+
+<script>
+// @ is an alias to /src
+
+export default {
+  name: "Home",
+  components: {}
+};
+</script>
+效果如下：
+image
+
+上述方式非常简单的将我们的Home组件和我们路由地址"/"进行了挂接，但是这种方式有一个缺点：我们需要在头部先引入这个home组件，Vue才能找到。
+
+import Home from "../views/Home.vue";
+有没有更简单的方式，不用每次将组件明确的导入呢？
+
+路由懒加载
+有更简单的方式：采用component动态注入（路由懒加载），即示例中about的挂接方式。如下配置，是指当浏览器的路由地址是web站点（准确的说是单体应用）根目录+"/about"时，我们将要触发的路由，它的名字叫About，它将为系统挂接views目录下的About.vue组件
+
+ {
+    path: "/about",
+    name: "About",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/About.vue")
+  },
+component后的内容是一个ES6的箭头函数写法，它的意思是将这个路由打包在一个叫about的异步块中，并加载../views/About.vue这个组件。通过这种方式既可以动态加载组件，又可以提升组件的加载速度（只加载当前要用的异步块中组件）
+
+ () =>
+      import(/* webpackChunkName: "about" */ "../views/About.vue")
+效果如下
+image
+
+404路由的配置
+很多时候，我们需要在用户将路由地址输入错误后，带领用户进到404页面。
+
+VueRouter的解决方案是通配符；代表可以匹配所有的地址，我们将如下router类写在routers数组的最后（顺序一定不能错，不然就会将用户的正确地址带到404），当用户输入的路由没有被前面的所有路由匹配时可以触发。触发404路由时，我们挂接NotFound组件。
+
+import NotFound from "../views/404";
+  {
+    path: "*",
+    name: "404",
+    component: NotFound
+  }
+效果如下
+image
+
+嵌套路由的配置
+我们刚刚一直都只讲了单层路由，但是实际项目过程中，路由是非常复杂了，路由地址的层级可能非常深。那么对于这种情况？vueRouter如何处理？
+
+先看如下代码：
+
+  {
+    path: "/user",
+    component: () =>
+      import(/* webpackChunkName: "layout" */ "../layouts/UserLayout"),
+    children: [
+      {
+        path: "/user",
+        redirect: "/user/Login"
+      },
+      {
+        path: "/user/login",
+        name: "login",
+        component: () =>
+          import(/* webpackChunkName: "user" */ "../views/User/Login")
+      },
+      {
+        path: "/user/register",
+        name: "register",
+        component: () =>
+          import(/* webpackChunkName: "user" */ "../views/User/Register")
+      }
+    ]
+  },
+我们只需要未router对象增加children数组即可，children数组里面依然是一组router对象，每一个Router对象还可以有自己的chilfren。
+
+  {
+    path: "/dashboard",
+    component: () =>
+      import(/* webpackChunkName: "layout" */ "../layouts/BasicLayout"),
+    children: [
+      {
+        path: "/dashboard",
+        redirect: "/dashboard/analysis"
+      },
+      {
+        path: "/dashboard",
+        name: "dashboard",
+        component: { render: h => h("router-view") },
+        children: [
+          {
+            path: "dashboard/analysis",
+            name: "analysis",
+            component: () =>
+              import(
+                /* webpackChunkName: "dashboard" */ "../views/Dashboard/Analysis"
+              )
+          }
+        ]
+      }
+    ]
+  },
+嵌套路由的注意事项
+上述示例中需要注意以下几点
+
+拥有children属性的组件，必须要在template中定义指定子路由中的组件挂接的位置。如BasicLayout组件中应定义router-view占位，保证它的子路由组件会挂接到占位位置。利用这个特性完成在BasicLayout中做一些样式和布局处理
+//BasicLayout.vue
+
+<template>
+  <div>
+    <Header></Header>
+    <SiderMenu></SiderMenu>
+    <router-view></router-view>
+    <Footer></Footer>
+  </div>
+</template>
+
+<script>
+import Header from "./Header";
+import Footer from "./Footer";
+import SiderMenu from "./SiderMenu";
+export default {
+  components: {
+    Header,
+    Footer,
+    SiderMenu
+  }
+};
+</script>
+
+<style></style>
+但是如果我的父路由的组件没有布局或样式，仅仅只是显示子路由的组件内容，专门创建一个组件并标记，很浪费，我们可以采用component: { render: h => h("router-view") },的方式动态注册
+{
+        path: "/dashboard",
+        name: "dashboard",
+        component: { render: h => h("router-view") },
+        children: [
+          {
+            path: "dashboard/analysis",
+            name: "analysis",
+            component: () =>
+              import(
+                /* webpackChunkName: "dashboard" */ "../views/Dashboard/Analysis"
+              )
+          }
+        ]
+      }
+路由重定向
+在部分场景下，我们希望能重定向某些路由地址。vueRouter提供了关键字redirect专门处理这些问题，如上述例子中的user，在匹配路由/user时，本来应该挂接UserLayout组件，但是我们通过redirect，将/user重定向到/user/Login了
+
+  {
+    path: "/user",
+    component: () =>
+      import(/* webpackChunkName: "layout" */ "../layouts/UserLayout"),
+    children: [
+      {
+        path: "/user",
+        redirect: "/user/Login"
+      },
+      {
+        path: "/user/login",
+        name: "login",
+        component: () =>
+          import(/* webpackChunkName: "user" */ "../views/User/Login")
+      }
+    ]
+  },
+路由守卫
+我们在路由切换过程中可能需要自定义某些事件处理某些业务逻辑，vueRouter提供了路由守卫模块。
+譬如，我们假设希望在路由切换时调用页面加载进度条，我们可以先引用nprogress以及其样式（需要额外安装），然后我们通过vueRouter提供的beforeEach和afterEach来触发
+
+import Nprogress from "nprogress";
+import "nprogress/nprogress.css";
+
+router.beforeEach((to, form, next) => {
+  //开始转跳，加载Nprogress进度条
+  Nprogress.start();
+  next();
+});
+
+router.afterEach(() => {
+  //转跳结束，Nprogress进度条加载完毕
+  Nprogress.done();
+});
+
+参考链接：https://www.cnblogs.com/wenpeng/p/12362734.html
