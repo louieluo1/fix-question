@@ -1,0 +1,22 @@
+问题：在eggjs项目中执行npm run dev遇到问题ERROR 9744 nodejs.AgentWorkerDiedError: [master] agent_worker
+    ERROR 9744 nodejs.AgentWorkerDiedError: [master] agent_worker#1:13168 died (code: 1, signal: null)
+    at Master.onAgentExit (F:\BloggerAndBMS\node_sever\node_modules\egg-cluster\lib\master.js:316:17)
+    at Master.emit (events.js:400:28)
+    at Messenger.sendToMaster (BloggerAndBMS\node_sever\node_modules\egg-cluster\lib\utils\messenger.js:137:17)
+    at Messenger.send (F:\BloggerAndBMS\node_sever\node_modules\egg-cluster\lib\utils\messenger.js:102:12)
+    at ChildProcess.<anonymous> (F:\BloggerAndBMS\node_sever\node_modules\egg-cluster\lib\utils\mode\impl\process\agent.js:89:22)
+    at Object.onceWrapper (events.js:520:26)
+    at ChildProcess.emit (events.js:400:28)
+    at Process.ChildProcess._handle.onexit (internal/child_process.js:285:12)
+    name: "AgentWorkerDiedError"
+    pid: 9744
+    hostname: xxx
+
+    2023-01-28 18:47:31,861 ERROR 9744 [master] agent_worker#1:13168 start fail, exiting with code:1
+    2023-01-28 18:47:31,863 ERROR 9744 [master] exit with code:1
+    
+    
+   解决：
+        换npm最新版本npm install -g npm@9.4.0
+        
+       
