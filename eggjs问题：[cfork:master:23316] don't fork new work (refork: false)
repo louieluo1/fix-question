@@ -1,0 +1,5 @@
+问题：eggjs问题：[cfork:master:23316] don't fork new work (refork: false)
+
+解决：
+    
+    应该是电脑里的应用程序有冲突，换一个启动的端口号或者把另一个程序关闭。
