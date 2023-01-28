@@ -1,0 +1,4 @@
+问题：egg:eggjs出现的问题：Error: controller not exists
+
+解决：
+    确定router.js里面的路由和自己写的Controller相匹配，确定你在controller最后一行写了module.exports= …
