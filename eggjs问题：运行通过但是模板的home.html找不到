@@ -1,0 +1,5 @@
+问题：eggjs问题：运行通过但是模板的home.html找不到
+    eggjs问题Can't find pc/home.html from (code: ERR_ASSERTION)
+
+解决：因为把view文件夹名字写成views，应该是view
+    
