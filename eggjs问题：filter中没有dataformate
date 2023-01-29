@@ -1,0 +1,5 @@
+问题：eggjs问题：某个文件中filter中没有dataformate
+
+解决：
+    一定是该文件中的没有extend文件夹下的filter或着有但是dataformate拼写错误，应该是dateformate,自己拼写错误。
+    拼写错误很常见，一定要注意，及时调试测试。
