@@ -1,0 +1,6 @@
+问题：eggjs问题：error: Cannot find module 'md5-node'
+     nodejs.MODULE_NOT_FOUNDError: [egg-core] load file: F:node_sever\app\service\user.js, 
+     error: Cannot find module 'md5-node'
+     
+解决：
+    npm install md5
