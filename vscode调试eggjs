@@ -1,0 +1,31 @@
+问题：vscode调试eggjs
+
+解决：
+    初次使用 egg.js 作为后台，每次调试需要使用console和打印日志的方式调试，不便于开发，影响效率，特此记录。
+    进入vscode配置窗口，配置launch.json文件
+    新增配置launch.json文件，其内容为：
+          {
+              // 使用 IntelliSense 了解相关属性。 
+              // 悬停以查看现有属性的描述。
+              // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+              {
+                  "version": "0.2.0",
+                  "configurations": [
+                        {
+                          "name": "Launch Egg",
+                          "type": "node",
+                          "request": "launch",
+                          "cwd": "${workspaceRoot}",
+                          "runtimeExecutable": "npm",
+                          "windows": { "runtimeExecutable": "npm.cmd" },
+                          "runtimeArgs": [ "run", "debug" ],
+                          "console": "integratedTerminal",
+                          "protocol": "auto",
+                          "restart": true,
+                          "port": 9229,
+                          "autoAttachChildProcesses": true
+                        }
+                    ]
+                }
+          }
+      然后按f5进行调试，浏览器和vscode是连着的，操作浏览器功能，然后再调试地方打断点，看变量情况，修改问题。
