@@ -1,0 +1,19 @@
+问题：CSS Pre-processors即CSS预处理器
+
+    CSS 预处理器是一个能让你通过预处理器自己独有的语法来生成CSS的程序。市面上有很多 CSS 预处理器可供选择，且绝大多数 CSS 预处理器会增加一些原生 CSS 不具备的特性，例如代码混合，嵌套选择器，继承选择器等。这些特性让 CSS 的结构更加具有可读性且易于维护。
+
+要使用 CSS 预处理器，你必须在 web 服务中服务器安装 CSS 编译工具。
+
+    这里是一些最流行的 CSS 预处理器：
+      Sass
+      LESS
+      Stylus
+      PostCSS
+
+  1、css：都很熟悉CSS( Cascading style sheet，级联样式表):是前端最基础的关于样式的语言；主要是用来对网页的风格进行设计的，可以获得各种排版。
+
+  2、css preprocessor：但是css写起来就是纯碎的一行行的属性描述，代码维护起来不方便，此时有人提出能不能对css加入一些编程的东西，可以对其进行一些预定的处理，这样就产生了css 预处理器（css preprocessor）。css preprocessor的思想是，用一种专门的编程语言可以将css preprocessor写出来的文件编译转为css文件。CSS预处理器技术已经非常的成熟，而且也涌现出了很多种不同的CSS预处理器语言，比如说：Sass（SCSS）、LESS、Stylus、Turbine、Swithch CSS、CSS Cacheer、DT CSS等。
+
+  3、sass：(Syntactically Awesome Stylesheets 层叠样式表语言)，属于缩排语法。诞生于2007年，是由Hampton Catlin创立的。最早也是最成熟的一款CSS预处理器语言，它可以使用变量、常量、嵌套、混入、函数等功能，可以更有效有弹性的写出CSS。
+
+  它可以减化CSS的工作流，使开发者更加容易开发，维护CSS样式。
