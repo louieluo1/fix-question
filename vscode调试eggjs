@@ -2,7 +2,7 @@
 
 解决：
     初次使用 egg.js 作为后台，每次调试需要使用console和打印日志的方式调试，不便于开发，影响效率，特此记录。
-    进入vscode配置窗口，配置launch.json文件
+    进入vscode配置窗口，配置launch.json文件，此时在app文件夹下生成.vscode文件夹以及里面的launch.json文件
     新增配置launch.json文件，其内容为：
           {
               // 使用 IntelliSense 了解相关属性。 
