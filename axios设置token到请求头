@@ -1,0 +1,30 @@
+问题：axios设置token到请求头
+
+一、为什么要设置请求头到token？
+当输入用户名及密码，登录成功后，后台会返回一个token，在之后发送的请求都要带上这个token，因为后台设置了拦截，如果token一致，则允许访问，否则请求不成功。
+二、用法
+加一个http request拦截器
+通过window.localStorage.getItem("token") 来获取token的value
+req.headers.token = token;将token放到请求头发送给服务器，放在请求头中
+
+// http request拦截器 添加一个请求拦截器
+import axios from "axios"
+const service = axios.create({
+    baseURL: process.env.VUE_APP_BASE_API + "/api",
+    timeout: 5000 //request timeout
+})
+service.interceptors.request.use(
+    req => {
+        let token = localStorage.getItem("token")
+        if (token) {
+            req.headers.token = token
+            //也可以这种写法
+            // req.headers['token'] = token;
+        }
+        return req
+    }
+)
+export default service
+
+可参考：https://blog.csdn.net/qq_41846861/article/details/88853217
+
