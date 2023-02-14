@@ -1,0 +1,9 @@
+问题：js中使用（...）时，报Uncaught TypeError: Found non-callable @@iterator
+      let obj={
+            name:"张三",
+            age:10
+        };
+        console.log(...obj)
+
+解决：因为对象不能这样用扩展运算符...，如：...obj，如果就想用就要在外面加{}，即{...obj}
+  
