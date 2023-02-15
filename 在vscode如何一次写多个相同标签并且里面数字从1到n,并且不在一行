@@ -15,3 +15,7 @@
             }
             
         然后保存，再次用快捷方式写多个标签，标签就会自动换行了
+        
+具体可参考Emmet官方文档：
+官网链接：https://stackoverflow.com/questions/53390142/force-emmet-vs-code-to-wrap-all-abbreviations-inline
+官网翻译：https://www.cnblogs.com/wicub/p/4332688.html
