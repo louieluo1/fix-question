@@ -1,0 +1,33 @@
+问题：js的问题：为什么设置了盒子宽高,但是用dom获取获取到的是空
+    <style>
+            #id{
+                width: 300px;
+                height: 300px;
+                border: 1px solid red
+            }
+        </style>
+    <div id="id">dddd</div>
+    <script>
+        let divv=document.getElementById("id")
+        let txt=divv.style.width
+        console.log(txt)//为空
+    </script>
+
+
+解决：
+  为什么设置了盒子宽高,但是用dom获取获取到的是空
+    因为通过dom.style.width这种方式只能取到行内属性  也就是写在HTML中的style属性，而不是css属性。
+    非要取css中的值得话 只能变相的取得如下：
+    方法一：
+        var a = divv.offsetHeight;
+        console.log(a) //302
+        
+    方法二：
+        最新获取的方法使用var b = window.getComputedStyle(a).height;  可以动态获取元素的高度  
+        JS 获取盒子模型对应的高宽(window.getComputedStyle、dom.getBoundingClientRect)
+          let txt2=window.getComputedStyle(divv).height
+          console.log(txt2)//300px
+          
+    方法三：
+         let txt3=divv.getBoundingClientRect().height
+          console.log(txt1)//302
