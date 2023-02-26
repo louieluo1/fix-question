@@ -19,8 +19,8 @@
     因为通过dom.style.width这种方式只能取到行内属性  也就是写在HTML中的style属性，而不是css属性。
     非要取css中的值得话 只能变相的取得如下：
     方法一：
-        var a = divv.offsetHeight;
-        console.log(a) //302
+        var txt1 = divv.offsetHeight;
+        console.log(txt1) //302
         
     方法二：
         最新获取的方法使用var b = window.getComputedStyle(a).height;  可以动态获取元素的高度  
@@ -30,4 +30,4 @@
           
     方法三：
          let txt3=divv.getBoundingClientRect().height
-          console.log(txt1)//302
+          console.log(txt3)//302
