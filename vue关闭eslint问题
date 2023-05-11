@@ -1,0 +1,4 @@
+问题：如何关闭eslint
+解决：在vue.config.js中添加 如下：
+    // 关闭检验
+    lintOnSave:false
