@@ -1,0 +1,10 @@
+
+问题：error  Component name "User" should always be multi-word  vue/multi-word-component-names报错。错误组件名称“用户”应始终为多词 vue/多词组件名称
+这是eslint检查命名规范报的错，
+
+解决：
+  vue.config.js里面添加：lintOnSave:false，重新运行代码即可。
+    module.exports = defineConfig({
+      transpileDependencies: true, 
+      lintOnSave:false  //检查命名规范
+    })
